@@ -1,6 +1,5 @@
 <template>
   <div>
-    <update-feed v-model="drawer"></update-feed>
     <v-app-bar color="primary" class="centered" dark app tabs prominent>
       <v-container class="mx-0 px-0" fluid>
         <v-row class="mx-0 px-0">
@@ -45,11 +44,9 @@
 
 <script>
 // import SocketIO from "socket.io-client";
-import UpdateFeed from "./updateFeed.vue";
 
 export default {
   components: {
-    UpdateFeed,
   },
   sockets: {
     connect() {
@@ -62,7 +59,7 @@ export default {
     },
   },
   data() {
-    console.log("this.$router.options.routes", this.$router.options.routes);
+    // console.log("this.$router.options.routes", this.$router.options.routes);
     return {
       piUrl: this.$store.state.piUrl,
       piUrlSet: true,

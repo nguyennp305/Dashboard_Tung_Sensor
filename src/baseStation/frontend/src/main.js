@@ -12,10 +12,13 @@ import SocketIO from 'socket.io-client'
 import VueGoogleCharts from 'vue-google-charts'
 import * as VueGoogleMaps from 'vue2-google-maps'
 
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 
 Vue.use(VueGoogleCharts)
 Vue.use(VueRouter)
 
+Vue.use(VueAxios, axios)
 Vue.use(VueGoogleMaps, {
   load: {
     key: process.env.VUE_APP_GOOGLE_MAPS_KEY,

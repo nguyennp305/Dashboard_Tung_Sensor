@@ -15,6 +15,7 @@
 <script>
 import DataCard from "../components/dataCard.vue";
 import DataMap from "../components/dataMap.vue";
+import axios from 'axios';
 
 export default {
   name: "dashboard",
@@ -25,8 +26,24 @@ export default {
   data() {
     return {
       measurements: this.$store.getters.measurementNames,
+      diachan: ''
     };
   },
+  mounted() {
+    const fetchData = () => {
+    axios.get('https://smartbouy-14717-default-rtdb.asia-southeast1.firebasedatabase.app/diachan.json')
+      .then(response => {
+        this.diachan = response.data;
+        this.$store.dispatch('updateDataMeasurements', response.data)
+        console.log('diachan_tung::: ', this.diachan)
+      })
+      .catch(error => {
+        console.error('Error fetching diachan:', error);
+      });
+    }
+    fetchData()
+    setInterval(fetchData, 10000)
+  }
 };
 </script>
 
@@ -34,7 +51,7 @@ export default {
 .dashboard {
   .dashboard-body {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 10px;
     padding: 40px;
   }
