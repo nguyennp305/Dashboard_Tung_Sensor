@@ -7,33 +7,33 @@ export default new Vuex.Store({
   state: {
     piUrl: 'http://localhost:5000',
     measurements: {
+      Xaxis:{
+        name: 'Xaxis',
+        data: [[new Date(), 4.1], [new Date(), 4.1]],
+        unit: 'm',
+        icon: 'mdi-current-ac',
+        trend: true
+      },
+      Yaxis:{
+        name: 'Yaxis',
+        data: [[new Date(), 3.2], [new Date(), 3.2]],
+        unit: 's',
+        icon: 'mdi-current-ac',
+        trend: true
+      },
+      Zaxis:{
+        name: 'Zaxis',
+        data: [[new Date(), 25.8], [new Date(), 25.8]],
+        unit: 'kW/m',
+        icon: 'mdi-current-ac',
+        trend: true
+      },
       location:{
         name: 'Location',
         data: [[new Date(), [12.015089, -61.697963]]],
         unit: '',
         icon: 'mdi-crosshairs-gps',
         trend: false,
-      },
-      wave_height:{
-        name: 'Wave Height',
-        data: [[new Date(), 4.1], [new Date(), 4.1]],
-        unit: 'm',
-        icon: 'mdi-current-ac',
-        trend: true
-      },
-      wave_period:{
-        name: 'Wave Period',
-        data: [[new Date(), 3.2], [new Date(), 3.2]],
-        unit: 's',
-        icon: 'mdi-current-ac',
-        trend: true
-      },
-      wave_power:{
-        name: 'Wave Power',
-        data: [[new Date(), 25.8], [new Date(), 25.8]],
-        unit: 'kW/m',
-        icon: 'mdi-current-ac',
-        trend: true
       }
     }
   },
@@ -111,6 +111,11 @@ export default new Vuex.Store({
         measurementData.shift();
       }
       measurementData.push(data.dataPoint);
+    },
+    updateMeasurements(state, data) {
+      state.measurements.Xaxis.data = [[new Date(), data.X], [new Date(), data.X]]
+      state.measurements.Yaxis.data = [[new Date(), data.Y], [new Date(), data.Y]]
+      state.measurements.Zaxis.data = [[new Date(), data.Z], [new Date(), data.Z]]
     }
   },
   actions: {
@@ -125,6 +130,8 @@ export default new Vuex.Store({
         dataPoint: [time, value],
       });
     },
-
+    updateDataMeasurements({ commit }, data){
+      commit('updateMeasurements', data)
+    },
   }
 })
